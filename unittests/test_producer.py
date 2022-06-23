@@ -1,7 +1,6 @@
 import sys
 import unittest
 sys.path.append('../src/')
-from threading import Event
 import producer as Producer
 import framequeue as Queue
 
