@@ -1,37 +1,50 @@
 from multiprocessing import Queue
+from queue import Full, Empty
 
 
 class FrameQueue():
     """
     
-    @param elementsize (tuple(int,int,int)): size of frame to send by Queue -> template (px:int,py:int,ch=3)
-    @param elementsize (int): numbers of frame to send by Queue, value greater then 0
+    @param numberofelements (int): numbers of frame to send by Queue, value greater then 0
     """
-    def __init__(self, elementsize: tuple , numberofelements : int ) -> None:
-        row , column , chnnels = elementsize
-        self.__sizeofQueue = numberofelements*row*column*chnnels
-        self.Queue = Queue(maxsize=self.__sizeofQueue)
-        
+    def __init__(self, numberOfElements : int ) -> None:
+
+        if(numberOfElements <= 0):
+            raise ErrorQueueElementsCount
+        self.__sizeofQueue = numberOfElements
+        self.__Queue = Queue(maxsize=self.__sizeofQueue)
+
     def get_sizeofQueue(self):
         return self.__sizeofQueue
 
-    def set_data(self, frame):
-        self.Queue.put(frame)
+    def put_data(self, frame , timeout = 1.0):
+        try:
+            self.__Queue.put(frame, timeout=timeout)
+        except Full:
+            raise ErrorQueueTimeoutQueueFull
 
-    def get_data(self, timeout : float = 5.0):
-        return self.Queue.get(timeout=timeout)
-
+    def get_data(self, timeout : float = 1.0):
+        try:
+            data = self.__Queue.get(timeout=timeout)
+        except Empty:
+            raise ErrorQueueTimeoutQueueEmpty
+        return data
 
 
 class ErrorQueue(Exception):
     pass
 
-class ErrorQueueElementSize(ErrorQueue):
-    def __init__(self, expression: str ="ErrorQueueElementSize", msg: str = "") -> None:
+class ErrorQueueElementsCount(ErrorQueue):
+    def __init__(self, expression: str ="ErrorQueueElementsCount", msg: str = "") -> None:
         self.expression = expression
         self.msg = msg
 
-class ErrorQueueElementsCount(ErrorQueue):
-    def __init__(self, expression: str ="ErrorQueueElementsCount", msg: str = "") -> None:
+class ErrorQueueTimeoutQueueFull(ErrorQueue):
+    def __init__(self, expression: str ="ErrorQueueTimeoutFullQueue", msg: str = "") -> None:
+        self.expression = expression
+        self.msg = msg
+
+class ErrorQueueTimeoutQueueEmpty(ErrorQueue):
+    def __init__(self, expression: str ="ErrorQueueTimeoutQueueEmpty", msg: str = "") -> None:
         self.expression = expression
         self.msg = msg
