@@ -20,7 +20,7 @@ class Producer(Process):
         self.__timeBetweenFrames = timeBetweenFrames
         self.__framesource = source.Source(sourceShape)
 
-    def __getWaitTime_ms(self):
+    def __getWaitTime_ms(self) -> float:
         return self.__timeBetweenFrames*0.001
 
     def run(self):
