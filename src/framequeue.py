@@ -30,6 +30,9 @@ class FrameQueue():
             raise ErrorQueueTimeoutQueueEmpty
         return data
 
+    def cancel(self):
+        self.__Queue.cancel_join_thread()
+        self.__Queue.close()
 
 class ErrorQueue(Exception):
     pass
