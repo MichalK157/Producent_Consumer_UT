@@ -1,12 +1,10 @@
 import sys 
+sys.path.append('../')
 import unittest
-from unittest.mock import Mock
 import time
-sys.path.append('../src/')
-
-import framequeue as Queue
-import consumer as Consumer
-from source import Source
+import src.framequeue as Queue
+import src.consumer as Consumer
+from src.source import Source
 
 class TestConsumer(unittest.TestCase):
 

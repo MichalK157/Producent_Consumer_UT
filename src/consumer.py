@@ -1,8 +1,10 @@
+import sys
+sys.path.append('../src/')
 from multiprocessing import Process
-from framequeue import FrameQueue
+from src.framequeue import FrameQueue
 import numpy as np
 from scipy import ndimage
-from exceptions import *
+from src.exceptions import *
 import time
 
 class Consumer(Process):

@@ -1,6 +1,8 @@
+import sys
+sys.path.append('../src/')
 from multiprocessing import Queue
 from queue import Full, Empty
-from exceptions import ErrorQueueElementsCount, ErrorQueueTimeoutQueueEmpty, ErrorQueueTimeoutQueueFull
+from src.exceptions import ErrorQueueElementsCount, ErrorQueueTimeoutQueueEmpty, ErrorQueueTimeoutQueueFull
 import numpy as np
 
 class FrameQueue():
