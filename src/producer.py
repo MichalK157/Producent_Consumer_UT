@@ -24,7 +24,7 @@ class Producer(Process):
     def __getWaitTime_ms(self) -> float:
         return self.__timeBetweenFrames*0.001
 
-    def run(self):
+    def run(self) -> None:
         while(self.__maxframeCount > 0):
             try:
                 self.__queue.put_data(self.__framesource.get_data())

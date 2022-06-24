@@ -1,5 +1,4 @@
 from multiprocessing import Process
-from time import sleep
 from framequeue import FrameQueue
 import numpy as np
 from scipy import ndimage
@@ -32,7 +31,7 @@ class Consumer(Process):
         self.__sendQueue = sendQueue
         self.__producerrPid =  ProducerPid
     
-    def __del__(self):
+    def __del__(self) -> None:
         try: #if raise exception in __init__
             self.__sendQueue.close()
         except AttributeError:
@@ -66,7 +65,5 @@ class Consumer(Process):
                     self.__sendQueue.put_data(frame)
                 else:
                     break
-                
+
         self.__del__()    
-
-
