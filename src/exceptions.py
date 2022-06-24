@@ -23,7 +23,7 @@ class ErrorQueueTimeoutQueueEmpty(ErrorQueue):
         self.expression = expression
         self.msg = msg
 
-##Customer##
+##Consumer##
 
 class ErrorConsumerShapeDivider(ErrorConsumer):
     def __init__(self, expression: str ="ErrorConsumerShapeDivider", msg: str = "") -> None:

@@ -4,8 +4,8 @@ class Source:
     """
     Data frame generator from given shape tuple (rows,cols,chanels)
 
-    examle: (1024,768,3)
-    
+    @source_shape: (tuple) - Frame shape (hiht, width, chanels(RGB))
+                            examle: (768,1024,3)
     """
     def __init__(self, source_shape: tuple):
         self._source_shape: tuple = source_shape

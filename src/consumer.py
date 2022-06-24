@@ -8,6 +8,20 @@ from src.exceptions import *
 import time
 
 class Consumer(Process):
+    """
+    Customer Class
+    is a thread which is receiving from reciveQueue queue and make conversions
+    then send preprocessed data to sendQueue
+
+    @param reciveQueue: (FrameQueue) - Reciving Queue Object
+    @param sendQueue: (FrameQueue) - Transmiting Queue Object
+    @param ProducerPid: (int) - Producent system PID
+    @param shapeDivider: (int) - prescaler of frame -> value > 1 frame will be smaller 
+                                    but if 0 > value > 1 frame will be greater
+    @param filterKernel: (tuple) - median filter kernel ->(x,y)
+    @param daemon: (bool) - daemon process -> default True
+
+    """
     def __init__(self,
                     reciveQueue: FrameQueue,
                     sendQueue: FrameQueue,
