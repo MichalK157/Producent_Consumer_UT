@@ -1,8 +1,10 @@
+import sys
+sys.path.append('../src/')
 from multiprocessing import Process
-import source as source
-from framequeue import FrameQueue 
+import src.source as source
+from src.framequeue import FrameQueue 
 import time
-from exceptions import *
+from src.exceptions import *
 
 class Producer(Process):
     """

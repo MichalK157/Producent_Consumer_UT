@@ -1,7 +1,7 @@
 import sys 
+sys.path.append('../')
 import unittest
-sys.path.append('../src/')
-import framequeue as Queue
+import src.framequeue as Queue
 
 
 class TestQueue(unittest.TestCase):

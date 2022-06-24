@@ -1,8 +1,10 @@
+import sys
+sys.path.append('../src/')
 from multiprocessing import Process
-from framequeue import FrameQueue
+from src.framequeue import FrameQueue
 import numpy as np
 from scipy import ndimage
-from exceptions import *
+from src.exceptions import *
 import time
 
 class Consumer(Process):
@@ -36,7 +38,7 @@ class Consumer(Process):
             self.__sendQueue.close()
         except AttributeError:
             pass
-
+        
     def ReshapeFrame(self, input: np.ndarray) -> np.ndarray:
         
         return ndimage.zoom(input,
@@ -64,6 +66,5 @@ class Consumer(Process):
                 if(self.__sendQueue.get_full != True):
                     self.__sendQueue.put_data(frame)
                 else:
-                    break
-
-        self.__del__()    
+                    break   
+        self.__del__()
