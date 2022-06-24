@@ -3,6 +3,7 @@
 Aplication Producent-Consumer
 
 The Producer is a thread which is using source frame data and put it to first queue every 50ms.
+
 The Consumer is a thread which is receiving from first queue and make two data conversion:
 
 1. Resize frame size by twice
