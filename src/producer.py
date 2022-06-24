@@ -2,6 +2,7 @@ from multiprocessing import Process
 import source as source
 from framequeue import FrameQueue 
 import time
+from exceptions import *
 
 class Producer(Process):
     """
@@ -24,8 +25,12 @@ class Producer(Process):
         return self.__timeBetweenFrames*0.001
 
     def run(self):
-        while(self.__maxframeCount >= 0):
-            self.__queue.put_data(self.__framesource.get_data())
+        while(self.__maxframeCount > 0):
+            try:
+                self.__queue.put_data(self.__framesource.get_data())
+            except ErrorQueue:
+                print("Queue has too few empty space")
+                break
             self.__maxframeCount -= 1 
             time.sleep(self.__getWaitTime_ms())
             
