@@ -48,10 +48,7 @@ class Consumer(Process):
         self.__producerrPid =  ProducerPid
     
     def __del__(self) -> None:
-        try: #if raise exception in __init__
-            self.__sendQueue.close()
-        except AttributeError:
-            pass
+        pass
         
     def ReshapeFrame(self, input: np.ndarray) -> np.ndarray:
         
@@ -68,17 +65,19 @@ class Consumer(Process):
         while True: 
             try:
                 frame = self.__reciveQueue.get_data()
+                frame = self.ReshapeFrame(frame)
+                frame = self.MedianFilter(frame)
+                self.__sendQueue.put_data(frame)
+            
             except ErrorQueueTimeoutQueueEmpty:
                 if(self.__producerrPid == None):
                     break
-            frame = self.ReshapeFrame(frame)
-            frame = self.MedianFilter(frame)
-            try:
-                self.__sendQueue.put_data(frame)
+            
             except ErrorQueueTimeoutQueueFull:
                 time.sleep(1)
                 if(self.__sendQueue.get_full != True):
                     self.__sendQueue.put_data(frame)
                 else:
                     break   
-        self.__del__()
+        
+        self.__sendQueue.close()
